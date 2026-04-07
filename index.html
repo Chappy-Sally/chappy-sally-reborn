@@ -147,14 +147,15 @@
     }
 
     .result-box {
-      background: linear-gradient(180deg, #ffffff, #f9f8ff);
-      border: 1px solid #ece7ff;
+      background: linear-gradient(180deg, #f3f5ff, #fff7ff);
+      border: 2px solid #d8ddff;
       border-radius: 18px;
-      padding: 18px;
-      line-height: 2;
+      padding: 16px;
+      line-height: 1.9;
       white-space: pre-line;
       font-size: 16px;
       margin-bottom: 16px;
+      color: #333;
     }
 
     .type-box,
@@ -165,6 +166,15 @@
       padding: 16px;
       margin-bottom: 16px;
       line-height: 1.9;
+    }
+
+    .result-title {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #463fcf;
+      line-height: 1.5;
+      font-size: 1.17em;
+      font-weight: bold;
     }
 
     .footer-note {
@@ -181,6 +191,29 @@
       text-align: center;
       margin-top: 10px;
       line-height: 1.8;
+    }
+
+    .link-box {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #f9fbff;
+      border: 1px solid #e6ecff;
+      text-align: center;
+      line-height: 1.8;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .link-box a {
+      color: #5a63d8;
+      text-decoration: none;
+      font-weight: bold;
+      word-break: break-all;
+    }
+
+    .link-box a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 480px) {
@@ -237,9 +270,22 @@
       <h2 class="center">あなたへのメッセージ🌈</h2>
 
       <div id="typeImageArea" class="hidden" style="margin-bottom:16px;"></div>
+
+      <!-- ①タイプ -->
       <div id="typeBox" class="type-box"></div>
-      <div id="jobBox" class="job-box"></div>
+
+      <!-- ②メッセージ -->
       <div id="resultBox" class="result-box"></div>
+
+      <!-- ③仕事 -->
+      <div id="jobBox" class="job-box"></div>
+
+      <div class="link-box">
+        このあとも、やさしく整う時間を過ごしたいときは🌿<br>
+        宇宙銀行ATMやおみくじなど、気軽に楽しめるものもあるよ🐾✨<br>
+        よかったらのぞいてみてね🌈<br><br>
+        <a href="https://lit.link/chappysally" target="_blank" rel="noopener noreferrer">https://lit.link/chappysally</a>
+      </div>
 
       <div class="footer-note">
         このメッセージが、少しでも心をゆるめるきっかけになりますように🌿
