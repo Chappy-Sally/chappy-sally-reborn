@@ -23,14 +23,15 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       border-radius: 22px;
       padding: 18px;
       box-shadow: 0 8px 24px rgba(118, 129, 189, 0.18);
       margin-bottom: 18px;
     }
 
-    .cover-image {
+    .cover-image,
+    .type-image {
       width: 100%;
       border-radius: 22px;
       display: block;
@@ -204,7 +205,7 @@
 
     <!-- 表紙 -->
     <section id="coverSection" class="card center">
-      <img src="images/cs_reborn.png" alt="わたしに戻るメッセージ表紙" class="cover-image">
+      <img src="./Image/cs_reborn.png" alt="わたしに戻るメッセージ表紙" class="cover-image">
       <div class="btn-wrap">
         <button class="btn btn-primary" onclick="showQuestionSection()">はじめる</button>
       </div>
@@ -233,6 +234,7 @@
     <section id="resultSection" class="card hidden">
       <h2 class="center">あなたへのメッセージ🌈</h2>
 
+      <div id="typeImageArea" class="hidden" style="margin-bottom:16px;"></div>
       <div id="typeBox" class="type-box"></div>
       <div id="resultBox" class="result-box"></div>
 
@@ -241,7 +243,7 @@
       </div>
 
       <div class="btn-wrap">
-        <button class="btn btn-secondary" onclick="backToTop()">もう一度やる</button>
+        <button class="btn btn-secondary" onclick="retryQuestions()">もう一度やる</button>
       </div>
     </section>
 
@@ -253,44 +255,44 @@
         id: "q1",
         title: "② 今の気分は？",
         options: [
-          { value: "genki", label: "元気", message: "今は前に進む力がちゃんとあるみたい✨\n動けるエネルギーがあるときこそ、無理しすぎず軽やかさも大切にしてみてね。" },
-          { value: "futsu", label: "普通", message: "大きく崩れてはいないけれど、心は静かにサインを出しているのかも🌿\n今の自分の小さな気持ちにも、やさしく気づいてあげてね。" },
-          { value: "moyamoya", label: "モヤモヤ", message: "心の中に言葉になりきらない思いが少したまっているのかも☁️\no焦らずに、まずは『何が引っかかっているのかな？』と見つめてあげてね。" },
-          { value: "shindoi", label: "しんどい", message: "知らないうちに、がんばりすぎていたのかもしれないね💧\n今は気合いよりも、安心できるほうを選んで大丈夫だよ。" },
-          { value: "tanoshii", label: "楽しい", message: "心がやわらかく開いていて、いい流れを受け取りやすいタイミングみたい🌈\nその楽しさを、がんばる理由ではなく喜びとして味わってね。" }
+          { value: "genki", label: "元気", message: "今は前に進む力がちゃんとあるみたい✨\n\n動けるエネルギーがあるときこそ、無理しすぎず軽やかさも大切にしてみてね。" },
+          { value: "futsu", label: "普通", message: "大きく崩れてはいないけれど、心は静かにサインを出しているのかも🌿\n\n今の自分の小さな気持ちにも、やさしく気づいてあげてね。" },
+          { value: "moyamoya", label: "モヤモヤ", message: "心の中に言葉になりきらない思いが少したまっているのかも☁️\n\n焦らずに、まずは『何が引っかかっているのかな？』と見つめてあげてね。" },
+          { value: "shindoi", label: "しんどい", message: "知らないうちに、がんばりすぎていたのかもしれないね💧\n\n今は気合いよりも、安心できるほうを選んで大丈夫だよ。" },
+          { value: "tanoshii", label: "楽しい", message: "心がやわらかく開いていて、いい流れを受け取りやすいタイミングみたい🌈\n\nその楽しさを、がんばる理由ではなく喜びとして味わってね。" }
         ]
       },
       {
         id: "q2",
         title: "③ 今いちばん気になっていることは？",
         options: [
-          { value: "ningen", label: "人間関係", message: "人との距離感や空気に、心が少し敏感になっているのかも🌙\n全部に合わせようとしなくて大丈夫。あなたの心地よさも大切だよ。" },
-          { value: "okane", label: "お金", message: "お金のことが気になるときは、安心したい気持ちが奥にあることも多いよ💫\n責めるより、今できていることにも目を向けてみてね。" },
-          { value: "shigoto", label: "仕事", message: "役割ややることに意識が向いていて、きちんとしたい思いが強まっているのかも🔥\nがんばる力はあるからこそ、ひと息つく時間も大事にしてね。" },
-          { value: "korekara", label: "これから", message: "未来のことを考えるほど、ちゃんとしたい気持ちと不安が混ざりやすい時期かも🌱\n全部決めなくていいよ。今の一歩から整っていくからね。" },
-          { value: "tokunai", label: "特にない", message: "はっきりした悩みはなくても、心が静かに整う時間を求めていたのかも🌿\n何もないようでいて、今のあなたに必要な気づきはちゃんとあるよ。" }
+          { value: "ningen", label: "人間関係", message: "人との距離感や空気に、心が少し敏感になっているのかも🌙\n\n全部に合わせようとしなくて大丈夫。あなたの心地よさも大切だよ。" },
+          { value: "okane", label: "お金", message: "お金のことが気になるときは、安心したい気持ちが奥にあることも多いよ💫\n\n責めるより、今できていることにも目を向けてみてね。" },
+          { value: "shigoto", label: "仕事", message: "役割ややることに意識が向いていて、きちんとしたい思いが強まっているのかも🔥\n\nがんばる力はあるからこそ、ひと息つく時間も大事にしてね。" },
+          { value: "korekara", label: "これから", message: "未来のことを考えるほど、ちゃんとしたい気持ちと不安が混ざりやすい時期かも🌱\n\n全部決めなくていいよ。今の一歩から整っていくからね。" },
+          { value: "tokunai", label: "特にない", message: "はっきりした悩みはなくても、心が静かに整う時間を求めていたのかも🌿\n\n何もないようでいて、今のあなたに必要な気づきはちゃんとあるよ。" }
         ]
       },
       {
         id: "q3",
         title: "④ 今の自分にいちばん近いのは？",
         options: [
-          { value: "ganbatteru", label: "がんばってる", message: "あなたはちゃんと進もうとしていて、その姿はとても健気だよ🌸\nでも『ちゃんとしなきゃ』が少し強くなっているなら、少しゆるめても大丈夫。" },
-          { value: "mayotteru", label: "迷ってる", message: "答えを急ぎたくなるけれど、まだ心が整理の途中なのかも🫧\n迷っている今も、ちゃんと大切な途中経過だよ。" },
-          { value: "tsukareteru", label: "疲れてる", message: "体より先に心が『そろそろ休みたいよ』と教えてくれているのかも💧\nまずは回復を選ぶことも、前に進む準備のひとつだよ。" },
-          { value: "ochitsuite", label: "落ち着いてる", message: "大きく波立たず、少し俯瞰して見られているタイミングみたい🌿\n静かな今だからこそ、本音にやさしく気づけそうだよ。" },
-          { value: "maemuki", label: "前向き", message: "未来に向かう光を、ちゃんと自分の中に感じているみたい✨\nその気持ちを焦りに変えず、やさしく育てていってね。" }
+          { value: "ganbatteru", label: "がんばってる", message: "あなたはちゃんと進もうとしていて、その姿はとても健気だよ🌸\n\nでも『ちゃんとしなきゃ』が少し強くなっているなら、少しゆるめても大丈夫。" },
+          { value: "mayotteru", label: "迷ってる", message: "答えを急ぎたくなるけれど、まだ心が整理の途中なのかも🫧\n\n迷っている今も、ちゃんと大切な途中経過だよ。" },
+          { value: "tsukareteru", label: "疲れてる", message: "体より先に心が『そろそろ休みたいよ』と教えてくれているのかも💧\n\nまずは回復を選ぶことも、前に進む準備のひとつだよ。" },
+          { value: "ochitsuite", label: "落ち着いてる", message: "大きく波立たず、少し俯瞰して見られているタイミングみたい🌿\n\n静かな今だからこそ、本音にやさしく気づけそうだよ。" },
+          { value: "maemuki", label: "前向き", message: "未来に向かう光を、ちゃんと自分の中に感じているみたい✨\n\nその気持ちを焦りに変えず、やさしく育てていってね。" }
         ]
       },
       {
         id: "q4",
         title: "⑤ 本当はどうしたい？",
         options: [
-          { value: "yasumitai", label: "休みたい", message: "本当は少し立ち止まって、安心を取り戻したい気持ちがあるのかも🍀\n休むことは後退じゃなくて、整い直すための大切な時間だよ。" },
-          { value: "susumitai", label: "進みたい", message: "心の奥には『このままじゃ終わりたくない』という前向きな力がありそう🔥\nその思いを急がせすぎず、ひとつずつ形にしていこうね。" },
-          { value: "anshin", label: "安心したい", message: "いちばん欲しいのは、答えよりも安心感なのかもしれないね🌿\nまずは『大丈夫』を感じられる場所や時間を増やしてみてね。" },
-          { value: "kawaritai", label: "変わりたい", message: "今のままではなく、もっと自然な自分に近づきたい気持ちがあるみたい🦋\n変化は大きくなくていいよ。小さな選択から流れは変わっていくからね。" },
-          { value: "wakaranai", label: "わからない", message: "まだ答えが見えないのは、心がだめなんじゃなくて、今は整理中なだけだよ☁️\nわからないままでも大丈夫。やさしく見守っていこうね。" }
+          { value: "yasumitai", label: "休みたい", message: "本当は少し立ち止まって、安心を取り戻したい気持ちがあるのかも🍀\n\n休むことは後退じゃなくて、整い直すための大切な時間だよ。" },
+          { value: "susumitai", label: "進みたい", message: "心の奥には『このままじゃ終わりたくない』という前向きな力がありそう🔥\n\nその思いを急がせすぎず、ひとつずつ形にしていこうね。" },
+          { value: "anshin", label: "安心したい", message: "いちばん欲しいのは、答えよりも安心感なのかもしれないね🌿\n\nまずは『大丈夫』を感じられる場所や時間を増やしてみてね。" },
+          { value: "kawaritai", label: "変わりたい", message: "今のままではなく、もっと自然な自分に近づきたい気持ちがあるみたい🦋\n\n変化は大きくなくていいよ。小さな選択から流れは変わっていくからね。" },
+          { value: "wakaranai", label: "わからない", message: "まだ答えが見えないのは、心がだめなんじゃなくて、今は整理中なだけだよ☁️\n\nわからないままでも大丈夫。やさしく見守っていこうね。" }
         ]
       },
       {
@@ -306,28 +308,40 @@
       }
     ];
 
-    const typeData = [
-      {
+    const typeData = {
+      yasashisa: {
         name: "やさしさタイプ🌸",
-        description: "人の気持ちに気づける、やわらかな感性を持っている人。\nやさしさを外に向けるのが得意だからこそ、自分にもそのやさしさを向けると整いやすいよ。"
+        description: "人の気持ちに気づける、やわらかな感性を持っている人。\nやさしさを外に向けるのが得意だからこそ、自分にもそのやさしさを向けると整いやすいよ。",
+        image: "./Image/cs_yasashisa.png"
       },
-      {
+      koudou: {
         name: "行動タイプ🔥",
-        description: "動くことで流れを作っていけるエネルギーを持っている人。\n進む力があるからこそ、がんばりすぎず軽やかさを忘れないことが鍵になりそう。"
+        description: "動くことで流れを作っていけるエネルギーを持っている人。\n進む力があるからこそ、がんばりすぎず軽やかさを忘れないことが鍵になりそう。",
+        image: "./Image/cs_koudou.png"
       },
-      {
+      baransu: {
         name: "バランスタイプ🌿",
-        description: "全体を見ながら、ちょうどよいところを見つける力がある人。\n無理なく整えることが得意だから、自分のペースを大切にすると本来の力が出やすいよ。"
+        description: "全体を見ながら、ちょうどよいところを見つける力がある人。\n無理なく整えることが得意だから、自分のペースを大切にすると本来の力が出やすいよ。",
+        image: "./Image/cs_baransu.png"
       },
-      {
+      naikan: {
         name: "内観タイプ🌙",
-        description: "静かに感じ取りながら、本質に気づく力を持っている人。\nすぐに答えを出さなくても大丈夫。落ち着いた時間の中で大切なものが見えてきそう。"
+        description: "静かに感じ取りながら、本質に気づく力を持っている人。\nすぐに答えを出さなくても大丈夫。落ち着いた時間の中で大切なものが見えてきそう。",
+        image: "./Image/cs_naikan.png"
       },
-      {
+      hirameki: {
         name: "ひらめきタイプ✨",
-        description: "ふとした感覚やインスピレーションを受け取りやすい人。\n思いつきを大切にすると、あなたらしい流れが自然と開いていきそうだよ。"
+        description: "ふとした感覚やインスピレーションを受け取りやすい人。\n思いつきを大切にすると、あなたらしい流れが自然と開いていきそうだよ。",
+        image: "./Image/cs_hirameki.png"
       }
-    ];
+    };
+
+    window.onload = function () {
+      const savedBirthday = localStorage.getItem("birthday");
+      if (savedBirthday) {
+        document.getElementById("birthday").value = savedBirthday;
+      }
+    };
 
     function showQuestionSection() {
       document.getElementById("coverSection").classList.add("hidden");
@@ -364,15 +378,15 @@
       });
     }
 
-    function getTypeFromBirthday(birthdayValue) {
+    function getTypeKeyFromBirthday(birthdayValue) {
       const date = new Date(birthdayValue);
       const day = date.getDate();
 
-      if (day >= 1 && day <= 6) return typeData[0];
-      if (day >= 7 && day <= 12) return typeData[1];
-      if (day >= 13 && day <= 18) return typeData[2];
-      if (day >= 19 && day <= 24) return typeData[3];
-      return typeData[4];
+      if (day >= 1 && day <= 6) return "yasashisa";
+      if (day >= 7 && day <= 12) return "koudou";
+      if (day >= 13 && day <= 18) return "baransu";
+      if (day >= 19 && day <= 24) return "naikan";
+      return "hirameki";
     }
 
     function getSelectedOption(question) {
@@ -381,26 +395,26 @@
       return question.options.find(opt => opt.value === checked.value);
     }
 
-    function buildSummary(selectedOptions, typeInfo) {
+    function buildSummary(selectedOptions) {
       const values = selectedOptions.map(opt => opt.value);
 
       if (values.includes("shindoi") || values.includes("tsukareteru") || values.includes("yasumitai")) {
-        return "今のあなたは、がんばることよりも、まず安心と休息を受け取ることでやさしく整っていくタイミングかも🐾\n少し力を抜いて、自分をいたわるほうを選んでみてね。";
+        return "今のあなたは、がんばることよりも、まず安心と休息を受け取ることでやさしく整っていくタイミングかも🐾\n\n少し力を抜いて、自分をいたわるほうを選んでみてね。";
       }
 
       if (values.includes("moyamoya") || values.includes("mayotteru") || values.includes("wakaranai")) {
-        return "今のあなたは、急いで答えを出すよりも、心の中をやさしく整理していくことで本来の流れに戻っていけそう🌿\n迷いもモヤモヤも、あなたがだめだからではなく、大切な途中なのかもしれないね。";
+        return "今のあなたは、急いで答えを出すよりも、心の中をやさしく整理していくことで本来の流れに戻っていけそう🌿\n\n迷いもモヤモヤも、あなたがだめだからではなく、大切な途中なのかもしれないね。";
       }
 
       if (values.includes("susumitai") || values.includes("maemuki") || values.includes("genki")) {
-        return "今のあなたは、前に進む力をちゃんと持っているみたい✨\nだからこそ焦らずに、自分に合うペースで進むことで、より軽やかな流れになっていきそうだよ。";
+        return "今のあなたは、前に進む力をちゃんと持っているみたい✨\n\nだからこそ焦らずに、自分に合うペースで進むことで、より軽やかな流れになっていきそうだよ。";
       }
 
       if (values.includes("anshin") || values.includes("daijobu") || values.includes("sonomama")) {
-        return "今のあなたにいちばん必要なのは、答えよりも『大丈夫』と感じられる安心感なのかもしれないね🌸\n自分を責めるより、今ここでほっとできる感覚を大切にしてみてね。";
+        return "今のあなたにいちばん必要なのは、答えよりも『大丈夫』と感じられる安心感なのかもしれないね🌸\n\n自分を責めるより、今ここでほっとできる感覚を大切にしてみてね。";
       }
 
-      return "今のあなたは、無理に変えようとするよりも、自分の心の声をやさしく受け取ることで整っていくタイミングかも🌈\nそのままのあなたにも、ちゃんと意味があって、流れがあるよ。";
+      return "今のあなたは、無理に変えようとするよりも、自分の心の声をやさしく受け取ることで整っていくタイミングかも🌈\n\nそのままのあなたにも、ちゃんと意味があって、流れがあるよ。";
     }
 
     function showResult() {
@@ -428,7 +442,14 @@
         selectedOptions.push(selected);
       }
 
-      const typeInfo = getTypeFromBirthday(birthday);
+      localStorage.setItem("birthday", birthday);
+
+      const typeKey = getTypeKeyFromBirthday(birthday);
+      const typeInfo = typeData[typeKey];
+
+      document.getElementById("typeImageArea").innerHTML =
+        `<img src="${typeInfo.image}" alt="${typeInfo.name}" class="type-image">`;
+      document.getElementById("typeImageArea").classList.remove("hidden");
 
       const typeHtml = `
         <h3>誕生日から見たあなたのタイプ</h3>
@@ -437,8 +458,7 @@
       `;
 
       const messages = selectedOptions.map(opt => opt.message).join("\n\n");
-      const summary = buildSummary(selectedOptions, typeInfo);
-
+      const summary = buildSummary(selectedOptions);
       const resultText = `${messages}\n\n【まとめメッセージ】\n${summary}`;
 
       document.getElementById("typeBox").innerHTML = typeHtml;
@@ -449,16 +469,11 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function backToTop() {
-      document.getElementById("birthday").value = "";
-
-      questions.forEach((q) => {
-        const checked = document.querySelector(`input[name="${q.id}"]:checked`);
-        if (checked) checked.checked = false;
-      });
-
+    function retryQuestions() {
       document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("coverSection").classList.remove("hidden");
+      document.getElementById("questionSection").classList.remove("hidden");
+      document.getElementById("errorMessage").classList.add("hidden");
+      document.getElementById("errorMessage").textContent = "";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
