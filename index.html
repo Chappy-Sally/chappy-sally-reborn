@@ -119,6 +119,7 @@
       transition: 0.2s;
       display: inline-block;
       text-align: center;
+      text-decoration: none;
     }
 
     .btn-primary {
@@ -159,6 +160,16 @@
       text-align: left;
     }
 
+    .result-box h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #463fcf;
+      line-height: 1.5;
+      font-size: 1.17em;
+      font-weight: bold;
+      text-align: left;
+    }
+
     .type-box,
     .job-box {
       background: linear-gradient(180deg, #f3f5ff, #fff7ff);
@@ -167,15 +178,6 @@
       padding: 16px;
       margin-bottom: 16px;
       line-height: 1.9;
-    }
-
-    .result-title {
-      margin-top: 0;
-      margin-bottom: 12px;
-      color: #463fcf;
-      line-height: 1.5;
-      font-size: 1.17em;
-      font-weight: bold;
     }
 
     .footer-note {
@@ -206,15 +208,9 @@
       font-size: 14px;
     }
 
-    .link-box a {
-      color: #5a63d8;
-      text-decoration: none;
-      font-weight: bold;
-      word-break: break-all;
-    }
-
-    .link-box a:hover {
-      text-decoration: underline;
+    .link-box .btn {
+      width: auto;
+      min-width: 220px;
     }
 
     @media (max-width: 480px) {
@@ -232,6 +228,10 @@
 
       .btn {
         width: 100%;
+      }
+
+      .link-box .btn {
+        min-width: 100%;
       }
     }
   </style>
@@ -281,11 +281,15 @@
       <!-- ③仕事 -->
       <div id="jobBox" class="job-box"></div>
 
+      <!-- リンク案内 -->
       <div class="link-box">
         このあとも、やさしく整う時間を過ごしたいときは🌿<br>
         宇宙銀行ATMやおみくじなど、気軽に楽しめるものもあるよ🐾✨<br>
         よかったらのぞいてみてね🌈<br><br>
-        <a href="https://lit.link/chappysally" target="_blank" rel="noopener noreferrer">https://lit.link/chappysally</a>
+
+        <a href="https://lit.link/chappysally" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          🌈 もっと見てみる
+        </a>
       </div>
 
       <div class="footer-note">
@@ -294,12 +298,6 @@
 
       <div class="btn-wrap">
         <button class="btn btn-secondary" onclick="retryQuestions()">もう一度やる</button>
-      </div>
-
-      <div class="btn-wrap">
-  <a href="https://lit.link/chappysally" target="_blank" class="btn btn-primary">
-    🌈 もっと見てみる
-  </a>
       </div>
     </section>
 
@@ -526,8 +524,8 @@
       const messages = selectedOptions.map(opt => opt.message).join("\n\n");
       const summary = buildSummary(selectedOptions);
       const messageHtml = `<h3>今のあなたに届いたメッセージ🌿</h3>
-　　　　　${messages.replace(/\n/g, "<br>")}<br><br><h3>まとめメッセージ</h3>
-　　　　　${summary.replace(/\n/g, "<br>")}`;
+${messages.replace(/\n/g, "<br>")}<br><br><h3>まとめメッセージ</h3>
+${summary.replace(/\n/g, "<br>")}`;
 
       document.getElementById("typeBox").innerHTML = typeHtml;
       document.getElementById("jobBox").innerHTML = jobHtml;
