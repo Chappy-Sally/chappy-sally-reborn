@@ -154,9 +154,11 @@
       line-height: 2;
       white-space: pre-line;
       font-size: 16px;
+      margin-bottom: 16px;
     }
 
-    .type-box {
+    .type-box,
+    .job-box {
       background: linear-gradient(180deg, #f3f5ff, #fff7ff);
       border: 2px solid #d8ddff;
       border-radius: 18px;
@@ -205,7 +207,7 @@
 
     <!-- 表紙 -->
     <section id="coverSection" class="card center">
-      <img src="./images/cs_reborn.png" alt="わたしに戻るメッセージ表紙" class="cover-image">
+      <img src="./Image/cs_reborn.png" alt="わたしに戻るメッセージ表紙" class="cover-image">
       <div class="btn-wrap">
         <button class="btn btn-primary" onclick="showQuestionSection()">はじめる</button>
       </div>
@@ -236,6 +238,7 @@
 
       <div id="typeImageArea" class="hidden" style="margin-bottom:16px;"></div>
       <div id="typeBox" class="type-box"></div>
+      <div id="jobBox" class="job-box"></div>
       <div id="resultBox" class="result-box"></div>
 
       <div class="footer-note">
@@ -256,7 +259,7 @@
         title: "② 今の気分は？",
         options: [
           { value: "genki", label: "元気", message: "今は前に進む力がちゃんとあるみたい✨\n\n動けるエネルギーがあるときこそ、無理しすぎず軽やかさも大切にしてみてね。" },
-          { value: "futsu", label: "不安", message: "はっきり理由はわからないけれど\n\n心のどこかが少し落ち着かないような\nそんな感覚があるのかも🌿\n\n今は無理に答えを出そうとしなくて大丈夫\n\n安心できるものや時間を\n少しずつ自分に増やしてあげてね" },
+          { value: "fuan", label: "なんとなく不安", message: "はっきり理由はわからないけれど\n\n心のどこかが少し落ち着かないような\nそんな感覚があるのかも🌿\n\n今は無理に答えを出そうとしなくて大丈夫\n\n安心できるものや時間を\n少しずつ自分に増やしてあげてね" },
           { value: "moyamoya", label: "モヤモヤ", message: "心の中に言葉になりきらない思いが少したまっているのかも☁️\n\n焦らずに、まずは『何が引っかかっているのかな？』と見つめてあげてね。" },
           { value: "shindoi", label: "しんどい", message: "知らないうちに、がんばりすぎていたのかもしれないね💧\n\n今は気合いよりも、安心できるほうを選んで大丈夫だよ。" },
           { value: "tanoshii", label: "楽しい", message: "心がやわらかく開いていて、いい流れを受け取りやすいタイミングみたい🌈\n\nその楽しさを、がんばる理由ではなく喜びとして味わってね。" }
@@ -312,27 +315,32 @@
       yasashisa: {
         name: "やさしさタイプ🌸",
         description: "人の気持ちに気づける、やわらかな感性を持っている人。\nやさしさを外に向けるのが得意だからこそ、自分にもそのやさしさを向けると整いやすいよ。",
-        image: "./images/cs_yasashisa.png"
+        image: "./Image/cs_yasashisa.png",
+        job: "人に寄り添ったり、安心感を届けることができること。\n\n自分のペースを大切にしながら続けられる働き方も合いやすそうだよ🐾"
       },
       koudou: {
         name: "行動タイプ🔥",
         description: "動くことで流れを作っていけるエネルギーを持っている人。\n進む力があるからこそ、がんばりすぎず軽やかさを忘れないことが鍵になりそう。",
-        image: "./images/cs_koudou.png"
+        image: "./Image/cs_koudou.png",
+        job: "動きながら進めることや、自分から流れをつくれること。\n\n変化があって、やってみながら育てていける働き方も合いやすそうだよ🐾"
       },
       baransu: {
         name: "バランスタイプ🌿",
         description: "全体を見ながら、ちょうどよいところを見つける力がある人。\n無理なく整えることが得意だから、自分のペースを大切にすると本来の力が出やすいよ。",
-        image: "./images/cs_baransu.png"
+        image: "./Image/cs_baransu.png",
+        job: "整えること、まとめること、全体を見ながら支えること。\n\n落ち着いて続けられて、バランス感覚を活かせる働き方も合いやすそうだよ🐾"
       },
       naikan: {
         name: "内観タイプ🌙",
         description: "静かに感じ取りながら、本質に気づく力を持っている人。\nすぐに答えを出さなくても大丈夫。落ち着いた時間の中で大切なものが見えてきそう。",
-        image: "./images/cs_naikan.png"
+        image: "./Image/cs_naikan.png",
+        job: "落ち着いて向き合えることや、ひとりでも進めやすいこと。\n\n深く考える力や静かな集中を活かせる働き方も合いやすそうだよ🐾"
       },
       hirameki: {
         name: "ひらめきタイプ✨",
         description: "ふとした感覚やインスピレーションを受け取りやすい人。\n思いつきを大切にすると、あなたらしい流れが自然と開いていきそうだよ。",
-        image: "./images/cs_hirameki.png"
+        image: "./Image/cs_hirameki.png",
+        job: "アイデアや感性、センスを活かせること。\n\n自由度があって、自分らしさを表現しやすい働き方も合いやすそうだよ🐾"
       }
     };
 
@@ -402,8 +410,8 @@
         return "今のあなたは、がんばることよりも、まず安心と休息を受け取ることでやさしく整っていくタイミングかも🐾\n\n少し力を抜いて、自分をいたわるほうを選んでみてね。";
       }
 
-      if (values.includes("moyamoya") || values.includes("mayotteru") || values.includes("wakaranai")) {
-        return "今のあなたは、急いで答えを出すよりも、心の中をやさしく整理していくことで本来の流れに戻っていけそう🌿\n\n迷いもモヤモヤも、あなたがだめだからではなく、大切な途中なのかもしれないね。";
+      if (values.includes("fuan") || values.includes("moyamoya") || values.includes("mayotteru") || values.includes("wakaranai")) {
+        return "今のあなたは、急いで答えを出すよりも、心の中をやさしく整理していくことで本来の流れに戻っていけそう🌿\n\n不安やモヤモヤも、あなたがだめだからではなく、大切な途中なのかもしれないね。";
       }
 
       if (values.includes("susumitai") || values.includes("maemuki") || values.includes("genki")) {
@@ -457,11 +465,17 @@
         ${typeInfo.description.replace(/\n/g, "<br>")}
       `;
 
+      const jobHtml = `
+        <h3>あなたに合いやすいお仕事のヒント🌿</h3>
+        ${typeInfo.job.replace(/\n/g, "<br>")}
+      `;
+
       const messages = selectedOptions.map(opt => opt.message).join("\n\n");
       const summary = buildSummary(selectedOptions);
       const resultText = `${messages}\n\n【まとめメッセージ】\n${summary}`;
 
       document.getElementById("typeBox").innerHTML = typeHtml;
+      document.getElementById("jobBox").innerHTML = jobHtml;
       document.getElementById("resultBox").textContent = resultText;
 
       document.getElementById("questionSection").classList.add("hidden");
@@ -472,8 +486,13 @@
     function retryQuestions() {
       document.getElementById("resultSection").classList.add("hidden");
       document.getElementById("questionSection").classList.remove("hidden");
+
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => radio.checked = false);
+
       document.getElementById("errorMessage").classList.add("hidden");
       document.getElementById("errorMessage").textContent = "";
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
