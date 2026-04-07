@@ -518,11 +518,13 @@
 
       const messages = selectedOptions.map(opt => opt.message).join("\n\n");
       const summary = buildSummary(selectedOptions);
-      const resultText = `今のあなたに届いたメッセージ🌿\n\n${messages}\n\n【まとめメッセージ】\n${summary}`;
+      const messageHtml = `<h3>今のあなたに届いたメッセージ🌿</h3>
+　　　　　${messages.replace(/\n/g, "<br>")}<br><br><h3>まとめメッセージ</h3>
+　　　　　${summary.replace(/\n/g, "<br>")}`;
 
       document.getElementById("typeBox").innerHTML = typeHtml;
       document.getElementById("jobBox").innerHTML = jobHtml;
-      document.getElementById("resultBox").textContent = resultText;
+      document.getElementById("resultBox").innerHTML = messageHtml;
 
       document.getElementById("questionSection").classList.add("hidden");
       document.getElementById("resultSection").classList.remove("hidden");
