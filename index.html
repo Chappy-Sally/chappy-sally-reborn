@@ -14,6 +14,9 @@
       font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
       background: linear-gradient(180deg, #f7fbff 0%, #eef8ff 40%, #fdf6ff 100%);
       color: #333;
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-text-size-adjust: 100%;
     }
 
     .container {
@@ -46,8 +49,8 @@
 
     .sub {
       color: #666;
-      font-size: 15px;
-      line-height: 1.8;
+      font-size: 14px;
+      line-height: 1.75;
     }
 
     .center {
@@ -68,7 +71,7 @@
 
     .question-title {
       font-weight: bold;
-      font-size: 17px;
+      font-size: 16px;
       margin-bottom: 12px;
       color: #3b3bc1;
       line-height: 1.7;
@@ -88,6 +91,7 @@
       cursor: pointer;
       transition: 0.2s;
       line-height: 1.6;
+      font-size: 15px;
     }
 
     label.option:hover {
@@ -97,7 +101,7 @@
 
     input[type="radio"] {
       margin-right: 8px;
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
     input[type="date"] {
@@ -152,9 +156,9 @@
       border: 2px solid #d8ddff;
       border-radius: 18px;
       padding: 16px;
-      line-height: 1.9;
+      line-height: 1.8;
       white-space: pre-line;
-      font-size: 16px;
+      font-size: 15px;
       margin-bottom: 16px;
       color: #333;
       text-align: left;
@@ -165,7 +169,7 @@
       margin-bottom: 12px;
       color: #463fcf;
       line-height: 1.5;
-      font-size: 1.17em;
+      font-size: 1.08em;
       font-weight: bold;
       text-align: left;
     }
@@ -177,15 +181,22 @@
       border-radius: 18px;
       padding: 16px;
       margin-bottom: 16px;
-      line-height: 1.9;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .type-box h3,
+    .job-box h3 {
+      font-size: 1.08em;
+      margin-bottom: 12px;
     }
 
     .footer-note {
       margin-top: 18px;
-      font-size: 14px;
+      font-size: 13px;
       color: #666;
       text-align: center;
-      line-height: 1.8;
+      line-height: 1.75;
     }
 
     .alert {
@@ -194,6 +205,7 @@
       text-align: center;
       margin-top: 10px;
       line-height: 1.8;
+      font-size: 14px;
     }
 
     .link-box {
@@ -203,9 +215,9 @@
       background: #f9fbff;
       border: 1px solid #e6ecff;
       text-align: center;
-      line-height: 1.8;
+      line-height: 1.75;
       color: #666;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .link-box .btn {
@@ -214,6 +226,10 @@
     }
 
     @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+      }
+
       .container {
         padding: 12px;
       }
@@ -223,11 +239,37 @@
       }
 
       .question-title {
-        font-size: 16px;
+        font-size: 15px;
+      }
+
+      .sub,
+      .footer-note,
+      .link-box,
+      .alert {
+        font-size: 13px;
+      }
+
+      label.option {
+        font-size: 14px;
+        padding: 11px 13px;
+      }
+
+      .result-box,
+      .type-box,
+      .job-box {
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .result-box h3,
+      .type-box h3,
+      .job-box h3 {
+        font-size: 1.03em;
       }
 
       .btn {
         width: 100%;
+        font-size: 15px;
       }
 
       .link-box .btn {
