@@ -1,606 +1,592 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>わたしに戻るメッセージ</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
-      background: linear-gradient(180deg, #f7fbff 0%, #eef8ff 40%, #fdf6ff 100%);
-      color: #333;
-      font-size: 15px;
-      line-height: 1.8;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.94);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 8px 24px rgba(118, 129, 189, 0.18);
-      margin-bottom: 18px;
-    }
-
-    .cover-image,
-    .type-image {
-      width: 100%;
-      border-radius: 22px;
-      display: block;
-      box-shadow: 0 10px 24px rgba(120, 120, 180, 0.18);
-    }
-
-    h1, h2, h3 {
-      margin-top: 0;
-      color: #463fcf;
-      line-height: 1.5;
-    }
-
-    .sub {
-      color: #666;
-      font-size: 14px;
-      line-height: 1.75;
-    }
-
-    .center {
-      text-align: center;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .question-block {
-      margin-bottom: 20px;
-      padding: 14px;
-      border-radius: 18px;
-      background: #f9fbff;
-      border: 1px solid #e6ecff;
-    }
-
-    .question-title {
-      font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 12px;
-      color: #3b3bc1;
-      line-height: 1.7;
-    }
-
-    .option-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    label.option {
-      display: block;
-      background: #fff;
-      border: 2px solid #dcdfff;
-      border-radius: 14px;
-      padding: 12px 14px;
-      cursor: pointer;
-      transition: 0.2s;
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    label.option:hover {
-      border-color: #9aa4ff;
-      background: #f7f8ff;
-    }
-
-    input[type="radio"] {
-      margin-right: 8px;
-      transform: scale(1.05);
-    }
-
-    input[type="date"] {
-      width: 100%;
-      border: 2px solid #dcdfff;
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 16px;
-      background: #fff;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-      display: inline-block;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #5964ff, #8f6bff);
-      color: #fff;
-      box-shadow: 0 8px 18px rgba(95, 101, 255, 0.28);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      opacity: 0.96;
-    }
-
-    .btn-secondary {
-      background: #fff;
-      color: #4a49b8;
-      border: 2px solid #cfd4ff;
-    }
-
-    .btn-wrap {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 18px;
-    }
-
-    .result-box {
-      background: linear-gradient(180deg, #f3f5ff, #fff7ff);
-      border: 2px solid #d8ddff;
-      border-radius: 18px;
-      padding: 16px;
-      line-height: 1.8;
-      white-space: pre-line;
-      font-size: 15px;
-      margin-bottom: 16px;
-      color: #333;
-      text-align: left;
-    }
-
-    .result-box h3 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      color: #463fcf;
-      line-height: 1.5;
-      font-size: 1.08em;
-      font-weight: bold;
-      text-align: left;
-    }
-
-    .type-box,
-    .job-box {
-      background: linear-gradient(180deg, #f3f5ff, #fff7ff);
-      border: 2px solid #d8ddff;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 16px;
-      line-height: 1.8;
-      font-size: 15px;
-    }
-
-    .type-box h3,
-    .job-box h3 {
-      font-size: 1.08em;
-      margin-bottom: 12px;
-    }
-
-    .footer-note {
-      margin-top: 18px;
-      font-size: 13px;
-      color: #666;
-      text-align: center;
-      line-height: 1.75;
-    }
-
-    .alert {
-      color: #c74a70;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 10px;
-      line-height: 1.8;
-      font-size: 14px;
-    }
-
-    .link-box {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 18px;
-      background: #f9fbff;
-      border: 1px solid #e6ecff;
-      text-align: center;
-      line-height: 1.75;
-      color: #666;
-      font-size: 13px;
-    }
-
-    .link-box .btn {
-      width: auto;
-      min-width: 220px;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        font-size: 14px;
-      }
-
-      .container {
-        padding: 12px;
-      }
-
-      .card {
-        padding: 14px;
-      }
-
-      .question-title {
-        font-size: 15px;
-      }
-
-      .sub,
-      .footer-note,
-      .link-box,
-      .alert {
-        font-size: 13px;
-      }
-
-      label.option {
-        font-size: 14px;
-        padding: 11px 13px;
-      }
-
-      .result-box,
-      .type-box,
-      .job-box {
-        font-size: 14px;
-        line-height: 1.75;
-      }
-
-      .result-box h3,
-      .type-box h3,
-      .job-box h3 {
-        font-size: 1.03em;
-      }
-
-      .btn {
-        width: 100%;
-        font-size: 15px;
-      }
-
-      .link-box .btn {
-        min-width: 100%;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-
-    <!-- 表紙 -->
-    <section id="coverSection" class="card center">
-      <img src="./images/cs_reborn.png" alt="わたしに戻るメッセージ表紙" class="cover-image">
-      <div class="btn-wrap">
-        <button class="btn btn-primary" onclick="showQuestionSection()">はじめる</button>
-      </div>
-    </section>
-
-    <!-- 質問 -->
-    <section id="questionSection" class="card hidden">
-      <h2 class="center">わたしに戻るメッセージ🐾</h2>
-      <p class="sub center">誕生日と5つの質問に答えてね。<br>今のあなたにやさしいメッセージをお届けするよ🌈</p>
-
-      <div class="question-block">
-        <div class="question-title">① 誕生日を入力してね🎂</div>
-        <input type="date" id="birthday">
-      </div>
-
-      <div id="questionsArea"></div>
-
-      <div id="errorMessage" class="alert hidden"></div>
-
-      <div class="btn-wrap">
-        <button class="btn btn-primary" onclick="showResult()">メッセージを受け取る</button>
-      </div>
-    </section>
-
-    <!-- 結果 -->
-    <section id="resultSection" class="card hidden">
-      <h2 class="center">今のあなたへのやさしいメッセージ🌿</h2>
-
-      <div id="typeImageArea" class="hidden" style="margin-bottom:16px;"></div>
-
-      <div id="typeBox" class="type-box"></div>
-      <div id="resultBox" class="result-box"></div>
-      <div id="jobBox" class="job-box"></div>
-
-      <div class="link-box">
-        このあとも、やさしく整う時間を過ごしたいときは🌿<br>
-        宇宙銀行ATMやおみくじなど、気軽に楽しめるものもあるよ🐾✨<br>
-        よかったらのぞいてみてね🌈<br><br>
-
-        <a href="https://lit.link/chappysally" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          🌈 もっと見てみる
-        </a>
-      </div>
-
-      <div class="footer-note">
-        このメッセージが、少しでも心をゆるめるきっかけになりますように🌿
-      </div>
-
-      <div class="link-box">
-        AIを相棒にしながら、もっとやさしく整えたい方へ🐾<br>
-        スマホひとつで使える<br>
-        「やさしく整える プチ鑑定ナビ」もご用意しています✨<br><br>
-
-        <a href="https://ChappySally.base.shop/items/139305163" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          💫 プチ鑑定ナビを見てみる
-        </a>
-      </div>
-
-      <div class="btn-wrap">
-        <button class="btn btn-secondary" onclick="retryQuestions()">もう一度やる</button>
-      </div>
-    </section>
-
-  </div>
-
-  <script>
-    const questions = [
-      {
-        id: "q1",
-        title: "② 今の気分は？",
-        options: [
-          { value: "genki", label: "元気", message: "今は前に進む力がちゃんとあるみたい✨\n\n森の小道に朝の光が差し込むように、あなたの中にも進むための光が見えてきています。\n\n動けるエネルギーがあるときこそ、無理しすぎず軽やかさも大切にしてみてね。" },
-          { value: "fuan", label: "なんとなく不安", message: "はっきり理由はわからないけれど\n\n心のどこかが少し落ち着かないような、そんな感覚があるのかも🌿\n\n今のあなたは、森のトレイルを歩きはじめたばかりのような時。\n\n先が全部見えなくても大丈夫。\n木々の隙間から差す光のように、必要なものは少しずつ見えてきます。" },
-          { value: "moyamoya", label: "モヤモヤ", message: "心の中に言葉になりきらない思いが少したまっているのかも☁️\n\n森の中で風が少し止まったように、流れがゆるやかになっているだけかもしれません。\n\n焦らずに、まずは『何が引っかかっているのかな？』と見つめてあげてね。" },
-          { value: "shindoi", label: "しんどい", message: "知らないうちに、がんばりすぎていたのかもしれないね💧\n\n今は山道を急いで登るより、森の中でひと息ついて風を感じる時間が必要なのかも。\n\n今は気合いよりも、安心できるほうを選んで大丈夫だよ。" },
-          { value: "tanoshii", label: "楽しい", message: "心がやわらかく開いていて、いい流れを受け取りやすいタイミングみたい🌈\n\n森の中に光が差し込むように、あなたの中にも自然なひらきが生まれています。\n\nその楽しさを、がんばる理由ではなく喜びとして味わってね。" }
-        ]
-      },
-      {
-        id: "q2",
-        title: "③ 今いちばん気になっていることは？",
-        options: [
-          { value: "ningen", label: "人間関係", message: "人との距離感や空気に、心が少し敏感になっているのかも🌙\n\n森の中でも、風の通る場所と静かな場所があるように、あなたにも心地よい距離があります。\n\n全部に合わせようとしなくて大丈夫。あなたの心地よさも大切だよ。" },
-          { value: "okane", label: "お金", message: "お金のことが気になるときは、安心したい気持ちが奥にあることも多いよ💫\n\n先の見えないトレイルを歩くときみたいに、不安になるのは自然なこと。\n\n責めるより、今できていることや、もう持っているものにも目を向けてみてね。" },
-          { value: "shigoto", label: "仕事", message: "役割ややることに意識が向いていて、きちんとしたい思いが強まっているのかも🔥\n\n森の道をまっすぐ進もうとしすぎると疲れてしまうこともあるよ。\n\nがんばる力はあるからこそ、ひと息つく時間も大事にしてね。" },
-          { value: "korekara", label: "これから", message: "未来のことを考えるほど、ちゃんとしたい気持ちと不安が混ざりやすい時期かも🌱\n\nトレイルの先が全部見えなくても、道はちゃんと続いています。\n\n全部決めなくていいよ。今の一歩から整っていくからね。" },
-          { value: "tokunai", label: "特にない", message: "はっきりした悩みはなくても、心が静かに整う時間を求めていたのかも🌿\n\n森を歩いているときのように、理由はなくても『なんだか心地いい』ってあるよね。\n\n何もないようでいて、今のあなたに必要な気づきはちゃんとあるよ。" }
-        ]
-      },
-      {
-        id: "q3",
-        title: "④ 今の自分にいちばん近いのは？",
-        options: [
-          { value: "ganbatteru", label: "がんばってる", message: "あなたはちゃんと進もうとしていて、その姿はとても健気だよ🌸\n\nでも山道をずっと力を入れて歩き続けると疲れてしまうよね。\n\n『ちゃんとしなきゃ』が少し強くなっているなら、少しゆるめても大丈夫。" },
-          { value: "mayotteru", label: "迷ってる", message: "答えを急ぎたくなるけれど、まだ心が整理の途中なのかも🫧\n\n森の分かれ道で立ち止まる時間も、ちゃんと道の一部です。\n\n迷っている今も、大切な途中経過だよ。" },
-          { value: "tsukareteru", label: "疲れてる", message: "体より先に心が『そろそろ休みたいよ』と教えてくれているのかも💧\n\n今はトレイルを進むより、木陰で休んで風を感じる時間が必要そう。\n\nまずは回復を選ぶことも、前に進む準備のひとつだよ。" },
-          { value: "ochitsuite", label: "落ち着いてる", message: "大きく波立たず、少し俯瞰して見られているタイミングみたい🌿\n\n森の静けさの中にいるように、今は本音が見えやすい時間。\n\n静かな今だからこそ、本音にやさしく気づけそうだよ。" },
-          { value: "maemuki", label: "前向き", message: "未来に向かう光を、ちゃんと自分の中に感じているみたい✨\n\nトレイルの先に光が見えるように、あなたの進みたい気持ちは本物です。\n\nその気持ちを焦りに変えず、やさしく育てていってね。" }
-        ]
-      },
-      {
-        id: "q4",
-        title: "⑤ 本当はどうしたい？",
-        options: [
-          { value: "yasumitai", label: "休みたい", message: "本当は少し立ち止まって、安心を取り戻したい気持ちがあるのかも🍀\n\n森の小道も、休みながら歩くほうが深く味わえます。\n\n休むことは後退じゃなくて、整い直すための大切な時間だよ。" },
-          { value: "susumitai", label: "進みたい", message: "心の奥には『このままじゃ終わりたくない』という前向きな力がありそう🔥\n\n道はちゃんとあるから、急がず一歩ずつで大丈夫。\n\nその思いをひとつずつ形にしていこうね。" },
-          { value: "anshin", label: "安心したい", message: "いちばん欲しいのは、答えよりも安心感なのかもしれないね🌿\n\n風がやわらかく通る場所みたいに、『ほっとする感覚』を増やしていくことが今は大事そう。\n\nまずは『大丈夫』を感じられる場所や時間を増やしてみてね。" },
-          { value: "kawaritai", label: "変わりたい", message: "今のままではなく、もっと自然な自分に近づきたい気持ちがあるみたい🦋\n\n変化は、森の中で少しずつ景色が変わるようなもの。\n\n大きく変えなくていいよ。小さな選択から流れは変わっていくからね。" },
-          { value: "wakaranai", label: "わからない", message: "まだ答えが見えないのは、心がだめなんじゃなくて、今は整理中なだけだよ☁️\n\nトレイルの先が見えないときも、道そのものはなくなっていません。\n\nわからないままでも大丈夫。やさしく見守っていこうね。" }
-        ]
-      },
-      {
-        id: "q5",
-        title: "⑥ 今の自分にかけるなら？",
-        options: [
-          { value: "daijobu", label: "大丈夫", message: "少し不安や揺れを感じているときほど\n\n“大丈夫”って言葉がやさしく心にしみていくのかも🌿\n\n森の中を歩くときも、足元を確認しながら進めば大丈夫。\n\n今のあなたも、ちゃんと大丈夫だよ。" },
-          { value: "sonomama", label: "そのままでいい", message: "がんばって整えようとしてきたからこそ\n\n“そのままでいいよ”って自分に言ってあげてもいいタイミングかも🌸\n\n木々がそれぞれの形で立っているように、今のあなたにもちゃんと意味があるよ。" },
-          { value: "yukkuri", label: "もう少しゆっくり", message: "少し急ぎすぎていたり、気を張っていたのかもしれないね🌿\n\nトレイルを歩くときも、ゆっくりだから見える景色があります。\n\n“もう少しゆっくり”って、やさしくペースをゆるめることで自然と整っていきそうだよ。" },
-          { value: "dekiteru", label: "できてるよ", message: "まだ足りないって思ってしまうときほど\n\n“もうできてるよ”って気づいてあげることが大切かも✨\n\nここまで歩いてきた道も、ちゃんとあなたの力だよ。" },
-          { value: "shinjite", label: "信じていい", message: "迷いや不安があるときほど、自分の感覚を疑いたくなるけれど🌙\n\n森の中で風を感じるように、あなたの感覚にもちゃんと意味があります。\n\n“信じていいよ”って、そっと自分に許してあげることで進む道がやさしく見えてきそうだよ。" }
-        ]
-      }
-    ];
-
-    const typeData = {
-      yasashisa: {
-        name: "やさしさタイプ🌸",
-        description: "人の気持ちに気づける、やわらかな感性を持っている人。\n森の中のやさしい風のように、まわりをそっと和らげる力があります。\n自分にもそのやさしさを向けると、もっと整いやすくなるよ。",
-        image: "./images/cs_yasashisa.png",
-        job: "人に寄り添ったり、安心感を届けることができること。\n\n森の小道をやさしく案内するように、誰かを支える働き方も合いやすそうだよ🐾"
-      },
-      koudou: {
-        name: "行動タイプ🔥",
-        description: "動くことで流れを作っていけるエネルギーを持っている人。\nトレイルを前に進んでいく足取りのように、進むことで景色がひらいていくタイプです。\nがんばりすぎず、軽やかさも忘れないことが鍵になりそう。",
-        image: "./images/cs_koudou.png",
-        job: "動きながら進めることや、自分から流れをつくれること。\n\n風を起こすように、場を動かしていける働き方も合いやすそうだよ🐾"
-      },
-      baransu: {
-        name: "バランスタイプ🌿",
-        description: "全体を見ながら、ちょうどよいところを見つける力がある人。\n森の中で光と影のバランスを感じ取るように、自然な整いを見つけるのが得意です。\n自分のペースを大切にすると本来の力が出やすいよ。",
-        image: "./images/cs_baransu.png",
-        job: "整えること、まとめること、全体を見ながら支えること。\n\n場の空気や流れをやさしく整える働き方も合いやすそうだよ🐾"
-      },
-      naikan: {
-        name: "内観タイプ🌙",
-        description: "静かに感じ取りながら、本質に気づく力を持っている人。\n森の奥の静かなトレイルのように、深いところにある気持ちに気づきやすいタイプです。\nすぐに答えを出さなくても大丈夫。落ち着いた時間の中で大切なものが見えてきそう。",
-        image: "./images/cs_naikan.png",
-        job: "落ち着いて向き合えることや、ひとりでも進めやすいこと。\n\n静かな集中や深い気づきを活かせる働き方も合いやすそうだよ🐾"
-      },
-      hirameki: {
-        name: "ひらめきタイプ✨",
-        description: "ふとした感覚やインスピレーションを受け取りやすい人。\n木々の隙間から差し込む光のように、突然『これかも』がやってくるタイプです。\n思いつきを大切にすると、あなたらしい流れが自然と開いていきそうだよ。",
-        image: "./images/cs_hirameki.png",
-        job: "アイデアや感性、センスを活かせること。\n\n光を見つけるように、新しい道を見つけていける働き方も合いやすそうだよ🐾"
-      }
-    };
-
-    window.onload = function () {
-      const savedBirthday = localStorage.getItem("birthday");
-      if (savedBirthday) {
-        document.getElementById("birthday").value = savedBirthday;
-      }
-    };
-
-    function showQuestionSection() {
-      document.getElementById("coverSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("questionSection").classList.remove("hidden");
-      renderQuestions();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function renderQuestions() {
-      const area = document.getElementById("questionsArea");
-      area.innerHTML = "";
-
-      questions.forEach((q) => {
-        const block = document.createElement("div");
-        block.className = "question-block";
-
-        let optionsHtml = "";
-        q.options.forEach((opt) => {
-          optionsHtml += `
-            <label class="option">
-              <input type="radio" name="${q.id}" value="${opt.value}">
-              ${opt.label}
-            </label>
-          `;
-        });
-
-        block.innerHTML = `
-          <div class="question-title">${q.title}</div>
-          <div class="option-list">${optionsHtml}</div>
-        `;
-
-        area.appendChild(block);
-      });
-    }
-
-    function getTypeKeyFromBirthday(birthdayValue) {
-      const date = new Date(birthdayValue);
-      const day = date.getDate();
-
-      if (day >= 1 && day <= 6) return "yasashisa";
-      if (day >= 7 && day <= 12) return "koudou";
-      if (day >= 13 && day <= 18) return "baransu";
-      if (day >= 19 && day <= 24) return "naikan";
-      return "hirameki";
-    }
-
-    function getSelectedOption(question) {
-      const checked = document.querySelector(`input[name="${question.id}"]:checked`);
-      if (!checked) return null;
-      return question.options.find(opt => opt.value === checked.value);
-    }
-
-    function buildSummary(selectedOptions) {
-      const values = selectedOptions.map(opt => opt.value);
-
-      if (values.includes("shindoi") || values.includes("tsukareteru") || values.includes("yasumitai")) {
-        return "今のあなたは、森のトレイルの途中で少し足を止めて、風を感じながら休む時間が必要なタイミングかも🐾\n\nがんばることよりも、まず安心と休息を受け取ることで、やさしく整っていきそうです。\n\n木々の間から差し込む光のように、今は『休んでいい』というサインを受け取ってみてね。";
-      }
-
-      if (values.includes("fuan") || values.includes("moyamoya") || values.includes("mayotteru") || values.includes("wakaranai")) {
-        return "今のあなたは、森のトレイルを歩いているような状態かも🌿\n\n先が全部見えなくても大丈夫。道はちゃんと続いていて、必要な光は少しずつ差し込んできます。\n\n不安やモヤモヤも、あなたがだめだからではなく、大切な途中にいるサインなのかもしれないね。";
-      }
-
-      if (values.includes("susumitai") || values.includes("maemuki") || values.includes("genki")) {
-        return "今のあなたは、光の差すトレイルを前に進む力をちゃんと持っているみたい✨\n\nだからこそ焦らず、自分に合うリズムで歩くことで、より軽やかな流れになっていきそうだよ。\n\n風を感じながら、一歩ずつ進んでいけば大丈夫。";
-      }
-
-      if (values.includes("anshin") || values.includes("daijobu") || values.includes("sonomama")) {
-        return "今のあなたにいちばん必要なのは、答えよりも『大丈夫』と感じられる安心感なのかもしれないね🌸\n\n森の中でふっと風が通るように、心がやわらぐ時間を少しずつ増やしていくことで整っていきそうです。\n\n今ここでほっとできる感覚を大切にしてみてね。";
-      }
-
-      return "今のあなたは、森の中をやさしく進むトレイルの途中にいるのかも🌈\n\n無理に変えようとしなくても、風や光を感じながら、自分の心の声を受け取ることで自然と整っていきそうです。\n\nそのままのあなたにも、ちゃんと意味があって、流れがあるよ。";
-    }
-
-    function showResult() {
-      const birthday = document.getElementById("birthday").value;
-      const errorBox = document.getElementById("errorMessage");
-
-      errorBox.classList.add("hidden");
-      errorBox.textContent = "";
-
-      if (!birthday) {
-        errorBox.textContent = "誕生日を入力してね🎂";
-        errorBox.classList.remove("hidden");
-        return;
-      }
-
-      const selectedOptions = [];
-
-      for (const q of questions) {
-        const selected = getSelectedOption(q);
-        if (!selected) {
-          errorBox.textContent = "すべての質問に答えてね🐾";
-          errorBox.classList.remove("hidden");
-          return;
-        }
-        selectedOptions.push(selected);
-      }
-
-      localStorage.setItem("birthday", birthday);
-
-      const typeKey = getTypeKeyFromBirthday(birthday);
-      const typeInfo = typeData[typeKey];
-
-      document.getElementById("typeImageArea").innerHTML =
-        `<img src="${typeInfo.image}" alt="${typeInfo.name}" class="type-image">`;
-      document.getElementById("typeImageArea").classList.remove("hidden");
-
-      const typeHtml = `
-        <h3>誕生日から見たあなたのタイプ</h3>
-        <strong>${typeInfo.name}</strong><br>
-        ${typeInfo.description.replace(/\n/g, "<br>")}
-      `;
-
-      const jobHtml = `
-        <h3>あなたに合いやすいお仕事のヒント🌿</h3>
-        ${typeInfo.job.replace(/\n/g, "<br>")}
-      `;
-
-      const messages = selectedOptions.map(opt => opt.message).join("\n\n");
-      const summary = buildSummary(selectedOptions);
-
-      const messageHtml = `
-        <h3>今のあなたに届いたメッセージ🌿</h3>
-        ${messages.replace(/\n/g, "<br>")}
-        <br><br>
-        <h3>まとめメッセージ</h3>
-        ${summary.replace(/\n/g, "<br>")}
-      `;
-
-      document.getElementById("typeBox").innerHTML = typeHtml;
-      document.getElementById("jobBox").innerHTML = jobHtml;
-      document.getElementById("resultBox").innerHTML = messageHtml;
-
-      document.getElementById("questionSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function retryQuestions() {
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("questionSection").classList.remove("hidden");
-
-      const radios = document.querySelectorAll('input[type="radio"]');
-      radios.forEach(radio => {
-        radio.checked = false;
-      });
-
-      document.getElementById("errorMessage").classList.add("hidden");
-      document.getElementById("errorMessage").textContent = "";
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  </script>
-</body>
+<!DOCTYPE html>  <html lang="ja">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>わたしに戻るメッセージ</title>  
+  <style>  
+    * {  
+      box-sizing: border-box;  
+    }  body {  
+  margin: 0;  
+  font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;  
+  background: linear-gradient(180deg, #f7fbff 0%, #eef8ff 40%, #fdf6ff 100%);  
+  color: #333;  
+  font-size: 15px;  
+  line-height: 1.8;  
+  -webkit-text-size-adjust: 100%;  
+}  
+
+.container {  
+  max-width: 760px;  
+  margin: 0 auto;  
+  padding: 16px;  
+}  
+
+.card {  
+  background: rgba(255, 255, 255, 0.94);  
+  border-radius: 22px;  
+  padding: 18px;  
+  box-shadow: 0 8px 24px rgba(118, 129, 189, 0.18);  
+  margin-bottom: 18px;  
+}  
+
+.cover-image,  
+.type-image {  
+  width: 100%;  
+  border-radius: 22px;  
+  display: block;  
+  box-shadow: 0 10px 24px rgba(120, 120, 180, 0.18);  
+}  
+
+h1, h2, h3 {  
+  margin-top: 0;  
+  color: #463fcf;  
+  line-height: 1.5;  
+}  
+
+.sub {  
+  color: #666;  
+  font-size: 14px;  
+  line-height: 1.75;  
+}  
+
+.center {  
+  text-align: center;  
+}  
+
+.hidden {  
+  display: none;  
+}  
+
+.question-block {  
+  margin-bottom: 20px;  
+  padding: 14px;  
+  border-radius: 18px;  
+  background: #f9fbff;  
+  border: 1px solid #e6ecff;  
+}  
+
+.question-title {  
+  font-weight: bold;  
+  font-size: 16px;  
+  margin-bottom: 12px;  
+  color: #3b3bc1;  
+  line-height: 1.7;  
+}  
+
+.option-list {  
+  display: grid;  
+  gap: 10px;  
+}  
+
+label.option {  
+  display: block;  
+  background: #fff;  
+  border: 2px solid #dcdfff;  
+  border-radius: 14px;  
+  padding: 12px 14px;  
+  cursor: pointer;  
+  transition: 0.2s;  
+  line-height: 1.6;  
+  font-size: 15px;  
+}  
+
+label.option:hover {  
+  border-color: #9aa4ff;  
+  background: #f7f8ff;  
+}  
+
+input[type="radio"] {  
+  margin-right: 8px;  
+  transform: scale(1.05);  
+}  
+
+input[type="date"] {  
+  width: 100%;  
+  border: 2px solid #dcdfff;  
+  border-radius: 14px;  
+  padding: 14px;  
+  font-size: 16px;  
+  background: #fff;  
+}  
+
+.btn {  
+  border: none;  
+  border-radius: 999px;  
+  padding: 14px 22px;  
+  font-size: 16px;  
+  font-weight: bold;  
+  cursor: pointer;  
+  transition: 0.2s;  
+  display: inline-block;  
+  text-align: center;  
+  text-decoration: none;  
+}  
+
+.btn-primary {  
+  background: linear-gradient(135deg, #5964ff, #8f6bff);  
+  color: #fff;  
+  box-shadow: 0 8px 18px rgba(95, 101, 255, 0.28);  
+}  
+
+.btn-primary:hover {  
+  transform: translateY(-1px);  
+  opacity: 0.96;  
+}  
+
+.btn-secondary {  
+  background: #fff;  
+  color: #4a49b8;  
+  border: 2px solid #cfd4ff;  
+}  
+
+.btn-wrap {  
+  display: flex;  
+  gap: 12px;  
+  flex-wrap: wrap;  
+  justify-content: center;  
+  margin-top: 18px;  
+}  
+
+.result-box {  
+  background: linear-gradient(180deg, #f3f5ff, #fff7ff);  
+  border: 2px solid #d8ddff;  
+  border-radius: 18px;  
+  padding: 16px;  
+  line-height: 1.8;  
+  white-space: pre-line;  
+  font-size: 15px;  
+  margin-bottom: 16px;  
+  color: #333;  
+  text-align: left;  
+}  
+
+.result-box h3 {  
+  margin-top: 0;  
+  margin-bottom: 12px;  
+  color: #463fcf;  
+  line-height: 1.5;  
+  font-size: 1.08em;  
+  font-weight: bold;  
+  text-align: left;  
+}  
+
+.type-box,  
+.job-box {  
+  background: linear-gradient(180deg, #f3f5ff, #fff7ff);  
+  border: 2px solid #d8ddff;  
+  border-radius: 18px;  
+  padding: 16px;  
+  margin-bottom: 16px;  
+  line-height: 1.8;  
+  font-size: 15px;  
+}  
+
+.type-box h3,  
+.job-box h3 {  
+  font-size: 1.08em;  
+  margin-bottom: 12px;  
+}  
+
+.footer-note {  
+  margin-top: 18px;  
+  font-size: 13px;  
+  color: #666;  
+  text-align: center;  
+  line-height: 1.75;  
+}  
+
+.alert {  
+  color: #c74a70;  
+  font-weight: bold;  
+  text-align: center;  
+  margin-top: 10px;  
+  line-height: 1.8;  
+  font-size: 14px;  
+}  
+
+.link-box {  
+  margin-top: 18px;  
+  padding: 16px;  
+  border-radius: 18px;  
+  background: #f9fbff;  
+  border: 1px solid #e6ecff;  
+  text-align: center;  
+  line-height: 1.75;  
+  color: #666;  
+  font-size: 13px;  
+}  
+
+.link-box .btn {  
+  width: auto;  
+  min-width: 220px;  
+}  
+
+@media (max-width: 480px) {  
+  body {  
+    font-size: 14px;  
+  }  
+
+  .container {  
+    padding: 12px;  
+  }  
+
+  .card {  
+    padding: 14px;  
+  }  
+
+  .question-title {  
+    font-size: 15px;  
+  }  
+
+  .sub,  
+  .footer-note,  
+  .link-box,  
+  .alert {  
+    font-size: 13px;  
+  }  
+
+  label.option {  
+    font-size: 14px;  
+    padding: 11px 13px;  
+  }  
+
+  .result-box,  
+  .type-box,  
+  .job-box {  
+    font-size: 14px;  
+    line-height: 1.75;  
+  }  
+
+  .result-box h3,  
+  .type-box h3,  
+  .job-box h3 {  
+    font-size: 1.03em;  
+  }  
+
+  .btn {  
+    width: 100%;  
+    font-size: 15px;  
+  }  
+
+  .link-box .btn {  
+    min-width: 100%;  
+  }  
+}
+
+  </style>  
+</head>  
+<body>  
+  <div class="container">  <!-- 表紙 -->  
+<section id="coverSection" class="card center">  
+  <img src="./images/cs_reborn.png" alt="わたしに戻るメッセージ表紙" class="cover-image">  
+  <div class="btn-wrap">  
+    <button class="btn btn-primary" onclick="showQuestionSection()">はじめる</button>  
+  </div>  
+</section>  
+
+<!-- 質問 -->  
+<section id="questionSection" class="card hidden">  
+  <h2 class="center">わたしに戻るメッセージ🐾</h2>  
+  <p class="sub center">誕生日と5つの質問に答えてね。<br>今のあなたにやさしいメッセージをお届けするよ🌈</p>  
+
+  <div class="question-block">  
+    <div class="question-title">① 誕生日を入力してね🎂</div>  
+    <input type="date" id="birthday">  
+  </div>  
+
+  <div id="questionsArea"></div>  
+
+  <div id="errorMessage" class="alert hidden"></div>  
+
+  <div class="btn-wrap">  
+    <button class="btn btn-primary" onclick="showResult()">メッセージを受け取る</button>  
+  </div>  
+</section>  
+
+<!-- 結果 -->  
+<section id="resultSection" class="card hidden">  
+  <h2 class="center">あなたへのメッセージ🌈</h2>  
+
+  <div id="typeImageArea" class="hidden" style="margin-bottom:16px;"></div>  
+
+  <div id="typeBox" class="type-box"></div>  
+  <div id="resultBox" class="result-box"></div>  
+  <div id="jobBox" class="job-box"></div>  
+
+  <!-- リットリンク案内 -->  
+  <div class="link-box">  
+    このあとも、やさしく整う時間を過ごしたいときは🌿<br>  
+    宇宙銀行ATMやおみくじなど、気軽に楽しめるものもあるよ🐾✨<br>  
+    よかったらのぞいてみてね🌈<br><br>  
+
+    <a href="https://lit.link/chappysally" target="_blank" rel="noopener noreferrer" class="btn btn-primary">  
+      🌈 もっと見てみる  
+    </a>  
+  </div>  
+
+  <div class="footer-note">  
+    このメッセージが、少しでも心をゆるめるきっかけになりますように🌿  
+  </div>  
+
+  <!-- BASE案内 -->  
+  <div class="link-box">  
+    AIを相棒にしながら、もっとやさしく整えたい方へ🐾<br>  
+    スマホひとつで使える<br>  
+    「やさしく整える プチ鑑定ナビ」もご用意しています✨<br><br>  
+
+    <a href="https://ChappySally.base.shop/items/139305163" target="_blank" rel="noopener noreferrer" class="btn btn-primary">  
+      💫 プチ鑑定ナビを見てみる  
+    </a>  
+  </div>  
+
+  <div class="btn-wrap">  
+    <button class="btn btn-secondary" onclick="retryQuestions()">もう一度やる</button>  
+  </div>  
+</section>
+
+  </div>    <script>  
+    const questions = [  
+      {  
+        id: "q1",  
+        title: "② 今の気分は？",  
+        options: [  
+          { value: "genki", label: "元気", message: "今は前に進む力がちゃんとあるみたい✨\n\n動けるエネルギーがあるときこそ、無理しすぎず軽やかさも大切にしてみてね。" },  
+          { value: "fuan", label: "なんとなく不安", message: "はっきり理由はわからないけれど\n\n心のどこかが少し落ち着かないような\nそんな感覚があるのかも🌿\n\n今は無理に答えを出そうとしなくて大丈夫\n\n安心できるものや時間を\n少しずつ自分に増やしてあげてね" },  
+          { value: "moyamoya", label: "モヤモヤ", message: "心の中に言葉になりきらない思いが少したまっているのかも☁️\n\n焦らずに、まずは『何が引っかかっているのかな？』と見つめてあげてね。" },  
+          { value: "shindoi", label: "しんどい", message: "知らないうちに、がんばりすぎていたのかもしれないね💧\n\n今は気合いよりも、安心できるほうを選んで大丈夫だよ。" },  
+          { value: "tanoshii", label: "楽しい", message: "心がやわらかく開いていて、いい流れを受け取りやすいタイミングみたい🌈\n\nその楽しさを、がんばる理由ではなく喜びとして味わってね。" }  
+        ]  
+      },  
+      {  
+        id: "q2",  
+        title: "③ 今いちばん気になっていることは？",  
+        options: [  
+          { value: "ningen", label: "人間関係", message: "人との距離感や空気に、心が少し敏感になっているのかも🌙\n\n全部に合わせようとしなくて大丈夫。あなたの心地よさも大切だよ。" },  
+          { value: "okane", label: "お金", message: "お金のことが気になるときは、安心したい気持ちが奥にあることも多いよ💫\n\n責めるより、今できていることにも目を向けてみてね。" },  
+          { value: "shigoto", label: "仕事", message: "役割ややることに意識が向いていて、きちんとしたい思いが強まっているのかも🔥\n\nがんばる力はあるからこそ、ひと息つく時間も大事にしてね。" },  
+          { value: "korekara", label: "これから", message: "未来のことを考えるほど、ちゃんとしたい気持ちと不安が混ざりやすい時期かも🌱\n\n全部決めなくていいよ。今の一歩から整っていくからね。" },  
+          { value: "tokunai", label: "特にない", message: "はっきりした悩みはなくても、心が静かに整う時間を求めていたのかも🌿\n\n何もないようでいて、今のあなたに必要な気づきはちゃんとあるよ。" }  
+        ]  
+      },  
+      {  
+        id: "q3",  
+        title: "④ 今の自分にいちばん近いのは？",  
+        options: [  
+          { value: "ganbatteru", label: "がんばってる", message: "あなたはちゃんと進もうとしていて、その姿はとても健気だよ🌸\n\nでも『ちゃんとしなきゃ』が少し強くなっているなら、少しゆるめても大丈夫。" },  
+          { value: "mayotteru", label: "迷ってる", message: "答えを急ぎたくなるけれど、まだ心が整理の途中なのかも🫧\n\n迷っている今も、ちゃんと大切な途中経過だよ。" },  
+          { value: "tsukareteru", label: "疲れてる", message: "体より先に心が『そろそろ休みたいよ』と教えてくれているのかも💧\n\nまずは回復を選ぶことも、前に進む準備のひとつだよ。" },  
+          { value: "ochitsuite", label: "落ち着いてる", message: "大きく波立たず、少し俯瞰して見られているタイミングみたい🌿\n\n静かな今だからこそ、本音にやさしく気づけそうだよ。" },  
+          { value: "maemuki", label: "前向き", message: "未来に向かう光を、ちゃんと自分の中に感じているみたい✨\n\nその気持ちを焦りに変えず、やさしく育てていってね。" }  
+        ]  
+      },  
+      {  
+        id: "q4",  
+        title: "⑤ 本当はどうしたい？",  
+        options: [  
+          { value: "yasumitai", label: "休みたい", message: "本当は少し立ち止まって、安心を取り戻したい気持ちがあるのかも🍀\n\n休むことは後退じゃなくて、整い直すための大切な時間だよ。" },  
+          { value: "susumitai", label: "進みたい", message: "心の奥には『このままじゃ終わりたくない』という前向きな力がありそう🔥\n\nその思いを急がせすぎず、ひとつずつ形にしていこうね。" },  
+          { value: "anshin", label: "安心したい", message: "いちばん欲しいのは、答えよりも安心感なのかもしれないね🌿\n\nまずは『大丈夫』を感じられる場所や時間を増やしてみてね。" },  
+          { value: "kawaritai", label: "変わりたい", message: "今のままではなく、もっと自然な自分に近づきたい気持ちがあるみたい🦋\n\n変化は大きくなくていいよ。小さな選択から流れは変わっていくからね。" },  
+          { value: "wakaranai", label: "わからない", message: "まだ答えが見えないのは、心がだめなんじゃなくて、今は整理中なだけだよ☁️\n\nわからないままでも大丈夫。やさしく見守っていこうね。" }  
+        ]  
+      },  
+      {  
+        id: "q5",  
+        title: "⑥ 今の自分にかけるなら？",  
+        options: [  
+          { value: "daijobu", label: "大丈夫", message: "少し不安や揺れを感じているときほど\n\n“大丈夫”って言葉が\nやさしく心にしみていくのかも🌿\n\n今のあなたも、ちゃんと大丈夫だよ" },  
+          { value: "sonomama", label: "そのままでいい", message: "がんばって整えようとしてきたからこそ\n\n“そのままでいいよ”って\n自分に言ってあげてもいいタイミングかも🌸\n\n今のあなたにも、ちゃんと意味があるよ" },  
+          { value: "yukkuri", label: "もう少しゆっくり", message: "少し急ぎすぎていたり\n気を張っていたのかもしれないね🌿\n\n“もう少しゆっくり”って\nやさしくペースをゆるめることで\n自然と整っていきそうだよ" },  
+          { value: "dekiteru", label: "できてるよ", message: "まだ足りないって思ってしまうときほど\n\n“もうできてるよ”って\n気づいてあげることが大切かも✨\n\nここまで来ているあなたも\nちゃんとすごいよ" },  
+          { value: "shinjite", label: "信じていい", message: "迷いや不安があるときほど\n自分の感覚を疑いたくなるけれど🌙\n\n“信じていいよ”って\nそっと自分に許してあげることで\n進む道がやさしく見えてきそうだよ" }  
+        ]  
+      }  
+    ];  
+  
+    const typeData = {  
+      yasashisa: {  
+        name: "やさしさタイプ🌸",  
+        description: "人の気持ちに気づける、やわらかな感性を持っている人。\nやさしさを外に向けるのが得意だからこそ、自分にもそのやさしさを向けると整いやすいよ。",  
+        image: "./images/cs_yasashisa.png",  
+        job: "人に寄り添ったり、安心感を届けることができること。\n\n自分のペースを大切にしながら続けられる働き方も合いやすそうだよ🐾"  
+      },  
+      koudou: {  
+        name: "行動タイプ🔥",  
+        description: "動くことで流れを作っていけるエネルギーを持っている人。\n進む力があるからこそ、がんばりすぎず軽やかさを忘れないことが鍵になりそう。",  
+        image: "./images/cs_koudou.png",  
+        job: "動きながら進めることや、自分から流れをつくれること。\n\n変化があって、やってみながら育てていける働き方も合いやすそうだよ🐾"  
+      },  
+      baransu: {  
+        name: "バランスタイプ🌿",  
+        description: "全体を見ながら、ちょうどよいところを見つける力がある人。\n無理なく整えることが得意だから、自分のペースを大切にすると本来の力が出やすいよ。",  
+        image: "./images/cs_baransu.png",  
+        job: "整えること、まとめること、全体を見ながら支えること。\n\n落ち着いて続けられて、バランス感覚を活かせる働き方も合いやすそうだよ🐾"  
+      },  
+      naikan: {  
+        name: "内観タイプ🌙",  
+        description: "静かに感じ取りながら、本質に気づく力を持っている人。\nすぐに答えを出さなくても大丈夫。落ち着いた時間の中で大切なものが見えてきそう。",  
+        image: "./images/cs_naikan.png",  
+        job: "落ち着いて向き合えることや、ひとりでも進めやすいこと。\n\n深く考える力や静かな集中を活かせる働き方も合いやすそうだよ🐾"  
+      },  
+      hirameki: {  
+        name: "ひらめきタイプ✨",  
+        description: "ふとした感覚やインスピレーションを受け取りやすい人。\n思いつきを大切にすると、あなたらしい流れが自然と開いていきそうだよ。",  
+        image: "./images/cs_hirameki.png",  
+        job: "アイデアや感性、センスを活かせること。\n\n自由度があって、自分らしさを表現しやすい働き方も合いやすそうだよ🐾"  
+      }  
+    };  
+  
+    window.onload = function () {  
+      const savedBirthday = localStorage.getItem("birthday");  
+      if (savedBirthday) {  
+        document.getElementById("birthday").value = savedBirthday;  
+      }  
+    };  
+  
+    function showQuestionSection() {  
+      document.getElementById("coverSection").classList.add("hidden");  
+      document.getElementById("resultSection").classList.add("hidden");  
+      document.getElementById("questionSection").classList.remove("hidden");  
+      renderQuestions();  
+      window.scrollTo({ top: 0, behavior: "smooth" });  
+    }  
+  
+    function renderQuestions() {  
+      const area = document.getElementById("questionsArea");  
+      area.innerHTML = "";  
+  
+      questions.forEach((q) => {  
+        const block = document.createElement("div");  
+        block.className = "question-block";  
+  
+        let optionsHtml = "";  
+        q.options.forEach((opt) => {  
+          optionsHtml += `  
+            <label class="option">  
+              <input type="radio" name="${q.id}" value="${opt.value}">  
+              ${opt.label}  
+            </label>  
+          `;  
+        });  
+  
+        block.innerHTML = `  
+          <div class="question-title">${q.title}</div>  
+          <div class="option-list">${optionsHtml}</div>  
+        `;  
+  
+        area.appendChild(block);  
+      });  
+    }  
+  
+    function getTypeKeyFromBirthday(birthdayValue) {  
+      const date = new Date(birthdayValue);  
+      const day = date.getDate();  
+  
+      if (day >= 1 && day <= 6) return "yasashisa";  
+      if (day >= 7 && day <= 12) return "koudou";  
+      if (day >= 13 && day <= 18) return "baransu";  
+      if (day >= 19 && day <= 24) return "naikan";  
+      return "hirameki";  
+    }  
+  
+    function getSelectedOption(question) {  
+      const checked = document.querySelector(`input[name="${question.id}"]:checked`);  
+      if (!checked) return null;  
+      return question.options.find(opt => opt.value === checked.value);  
+    }  
+  
+    function buildSummary(selectedOptions) {  
+      const values = selectedOptions.map(opt => opt.value);  
+  
+      if (values.includes("shindoi") || values.includes("tsukareteru") || values.includes("yasumitai")) {  
+        return "今のあなたは、がんばることよりも、まず安心と休息を受け取ることでやさしく整っていくタイミングかも🐾\n\n少し力を抜いて、自分をいたわるほうを選んでみてね。";  
+      }  
+  
+      if (values.includes("fuan") || values.includes("moyamoya") || values.includes("mayotteru") || values.includes("wakaranai")) {  
+        return "今のあなたは、急いで答えを出すよりも、心の中をやさしく整理していくことで本来の流れに戻っていけそう🌿\n\n不安やモヤモヤも、あなたがだめだからではなく、大切な途中なのかもしれないね。";  
+      }  
+  
+      if (values.includes("susumitai") || values.includes("maemuki") || values.includes("genki")) {  
+        return "今のあなたは、前に進む力をちゃんと持っているみたい✨\n\nだからこそ焦らずに、自分に合うペースで進むことで、より軽やかな流れになっていきそうだよ。";  
+      }  
+  
+      if (values.includes("anshin") || values.includes("daijobu") || values.includes("sonomama")) {  
+        return "今のあなたにいちばん必要なのは、答えよりも『大丈夫』と感じられる安心感なのかもしれないね🌸\n\n自分を責めるより、今ここでほっとできる感覚を大切にしてみてね。";  
+      }  
+  
+      return "今のあなたは、無理に変えようとするよりも、自分の心の声をやさしく受け取ることで整っていくタイミングかも🌈\n\nそのままのあなたにも、ちゃんと意味があって、流れがあるよ。";  
+    }  
+  
+    function showResult() {  
+      const birthday = document.getElementById("birthday").value;  
+      const errorBox = document.getElementById("errorMessage");  
+  
+      errorBox.classList.add("hidden");  
+      errorBox.textContent = "";  
+  
+      if (!birthday) {  
+        errorBox.textContent = "誕生日を入力してね🎂";  
+        errorBox.classList.remove("hidden");  
+        return;  
+      }  
+  
+      const selectedOptions = [];  
+  
+      for (const q of questions) {  
+        const selected = getSelectedOption(q);  
+        if (!selected) {  
+          errorBox.textContent = "すべての質問に答えてね🐾";  
+          errorBox.classList.remove("hidden");  
+          return;  
+        }  
+        selectedOptions.push(selected);  
+      }  
+  
+      localStorage.setItem("birthday", birthday);  
+  
+      const typeKey = getTypeKeyFromBirthday(birthday);  
+      const typeInfo = typeData[typeKey];  
+  
+      document.getElementById("typeImageArea").innerHTML =  
+        `<img src="${typeInfo.image}" alt="${typeInfo.name}" class="type-image">`;  
+      document.getElementById("typeImageArea").classList.remove("hidden");  
+  
+      const typeHtml = `  
+        <h3>誕生日から見たあなたのタイプ</h3>  
+        <strong>${typeInfo.name}</strong><br>  
+        ${typeInfo.description.replace(/\n/g, "<br>")}  
+      `;  
+  
+      const jobHtml = `  
+        <h3>あなたに合いやすいお仕事のヒント🌿</h3>  
+        ${typeInfo.job.replace(/\n/g, "<br>")}  
+      `;  
+  
+      const messages = selectedOptions.map(opt => opt.message).join("\n\n");  
+      const summary = buildSummary(selectedOptions);  
+      const messageHtml = `<h3>今のあなたに届いたメッセージ🌿</h3>${messages.replace(/\n/g, "<br>")}<br><br><h3>まとめメッセージ</h3>${summary.replace(/\n/g, "<br>")}`;  
+  
+      document.getElementById("typeBox").innerHTML = typeHtml;  
+      document.getElementById("jobBox").innerHTML = jobHtml;  
+      document.getElementById("resultBox").innerHTML = messageHtml;  
+  
+      document.getElementById("questionSection").classList.add("hidden");  
+      document.getElementById("resultSection").classList.remove("hidden");  
+      window.scrollTo({ top: 0, behavior: "smooth" });  
+    }  
+  
+    function retryQuestions() {  
+      document.getElementById("resultSection").classList.add("hidden");  
+      document.getElementById("questionSection").classList.remove("hidden");  
+  
+      const radios = document.querySelectorAll('input[type="radio"]');  
+      radios.forEach(radio => radio.checked = false);  
+  
+      document.getElementById("errorMessage").classList.add("hidden");  
+      document.getElementById("errorMessage").textContent = "";  
+  
+      window.scrollTo({ top: 0, behavior: "smooth" });  
+    }  
+  </script>  </body>  
 </html>
